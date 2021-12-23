@@ -1,11 +1,16 @@
+import {useState} from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Button from '@mui/material/Button'
 
 import FileUpload from '../src/components/FileUpload'
+import DataTable from '../src/components/DataTable'
+
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const [data, setData] = useState()
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +19,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <FileUpload />
+      <FileUpload setData={setData} />
+      {data && <DataTable data={data} />}
       
     </div>
   )

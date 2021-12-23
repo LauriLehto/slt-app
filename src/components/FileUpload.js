@@ -1,13 +1,11 @@
-import {useState} from 'react'
 
 import Button from '@mui/material/Button'
 import Papa from 'papaparse'
 
-import DataTable from '@mui/material/DataTable'
 
-const FileUpload = () => {
+const FileUpload = (props) => {
 
-  const [data, setData] = useState()
+  
 
   const onUpload = async(event) => {
 
@@ -18,7 +16,7 @@ const FileUpload = () => {
     Papa.parse(csvFile, {
       complete: function(results) {
         console.log("Finished:", results.data);
-        setData(data)
+        props.setData(results.data)
       }
     });
   }
@@ -36,7 +34,6 @@ const FileUpload = () => {
           onChange={onUpload}
         />
       </Button>
-      <DataTable />
     </>
   )
 }
