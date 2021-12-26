@@ -1,15 +1,40 @@
 import {useState} from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import Grid from '@mui/material/Grid'
+import 'leaflet/dist/leaflet.css'
 
 import FileUpload from '../src/components/FileUpload'
 import DataTable from '../src/components/DataTable'
-import styles from '../styles/Home.module.css'
+
+
+/* const MapSelect = dynamic(import('../components/MapSelect'), {
+  ssr: false,
+  loading: () => (
+    <div style={{textAlign: 'center', paddingTop: 20}}>
+      Loading...
+    </div>
+  )
+}) */
+
 
 
 export default function Home() {
   const [data, setData] = useState()
+
+  const MapSelect = dynamic(
+    () => import('../src/components/MapSelect'),
+    {
+      loading: () => <p>A map is loading</p>,
+      ssr: false
+    }
+  )
+
+  const Map = dynamic(
+    () => import('../src/components/Map'), 
+    { ssr: false }
+  )
 
   return (
     <div>
@@ -22,12 +47,13 @@ export default function Home() {
       <Grid 
         container
         direction='row'
-        justifyContent="space-around"
+        justifyContent="center"
         alignItems="center"
         minHeight="650px"
         >
         <Grid item xs={6}> 
           <Grid container alignItems="end" justifyContent="center">
+            <Map />
             <FileUpload setData={setData} />
           </Grid>
         </Grid>

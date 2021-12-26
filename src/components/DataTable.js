@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,10 +12,11 @@ import TablePagination from '@mui/material/TablePagination';
 import TablePaginationActions from './TablePaginationActions';
 
 export default function DataTable(props) {
-  const [page, setPage] = useState(0);
   const { data } = props
   const tableHeaders = data[0]
   const tableData = data.slice(1)
+
+  const [page, setPage] = useState(0);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -36,8 +38,9 @@ export default function DataTable(props) {
       <Table 
         sx={{ maxWidth: 650 }} 
         aria-label="simple table"
-        pageSize={5}
-        rowsPerPageOptions={[5]}>
+        //pageSize={5}
+        //rowsPerPageOptions={[5]}
+        >
         <TableHead>
           <TableRow>
             {tableHeaders.map(th => <TableCell key={th}>{th.toUpperCase()}</TableCell>)}
@@ -49,7 +52,7 @@ export default function DataTable(props) {
             : tableData
           ).map((row) => (
             <TableRow
-              key={row.name}
+              key={row.toString()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               {row.map(tc=> <TableCell key={tc}>{tc}</TableCell>)}
@@ -80,3 +83,8 @@ export default function DataTable(props) {
     </TableContainer>
   );
 }
+
+
+DataTable.propTypes = {
+  data: PropTypes.array.isRequired
+};
