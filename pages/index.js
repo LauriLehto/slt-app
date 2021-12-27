@@ -3,11 +3,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import Grid from '@mui/material/Grid'
-import 'leaflet/dist/leaflet.css'
 
 import FileUpload from '../src/components/FileUpload'
 import DataTable from '../src/components/DataTable'
-
+import 'leaflet/dist/leaflet.css'
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 /* const MapSelect = dynamic(import('../components/MapSelect'), {
   ssr: false,
@@ -23,19 +23,23 @@ import DataTable from '../src/components/DataTable'
 export default function Home() {
   const [data, setData] = useState()
 
-  const MapSelect = dynamic(
-    () => import('../src/components/MapSelect'),
+  /* const MapSelect = dynamic(
+    () => import('../src/components/leaflet/MapSelect'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false
     }
-  )
+  ) */
 
+  /* const Map = dynamic(
+    () => import('../src/components/leaflet/Map'), 
+    { ssr: false }
+  ) */
   const Map = dynamic(
-    () => import('../src/components/Map'), 
+    () => import('../src/components/mapbox/Map'), 
     { ssr: false }
   )
-  console.log(process.env.MAPBOX_API_KEY)
+
 
   return (
     <div>
