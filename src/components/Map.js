@@ -1,51 +1,54 @@
 import {useState} from 'react'
+import { Input } from '@mui/material';
+import TextField from '@mui/material/TextField'
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents ,useMapEvent } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import "leaflet-defaulticon-compatibility";
 
-function FlyToClick() {
-  const [position, setPosition] = useState(null)
-  const map = useMapEvents({
-    click() {
-      map.locate()
-    },
-    locationfound(e) {
-      setPosition(e.latlng)
-      map.flyTo(e.latlng, map.getZoom())
-    },
-  })
+import MapSearch from './MapSearch'
 
-  return position === null ? null : (
-    <Marker position={position}>
-      <Popup>You are here</Popup>
-    </Marker>
-  )
-}
-
-function ClickMarker() {
-  const [position, setPosition] = useState(null)
+function ClickMarker(props) {
   
-  const map = useMapEvent('click', (e) => {
+  useMapEvent('click', (e) => {
     console.log(e.latlng)
-    setPosition(e.latlng)
+    props.setPosition(e.latlng)
   })
-  return position === null ? null : (
-    <Marker position={position}>
+  return props.position === null ? null : (
+    <Marker position={props.position}>
       <Popup>You are here</Popup>
     </Marker>
   )
 }
-
 
 const Map = () => {
 
+  const [position, setPosition] = useState(null)
+  const [text, setText] = useState('')
+  console.log(process.env.MAPBOX_API_KEY)
+
+  const handleChange = async (e) => {
+    setText(e.target.value)
+    try {
+      const results = await fetch(`/api/mapbox?search=${e.target.value}`)
+      console.log(results)
+    }catch(error){
+      console.error(error)
+    }
+  }
+
   return (
-    <MapContainer  center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false} style={{height: 400, width: "100%"}}>
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <ClickMarker />
+    <>
+      <TextField id="outlined-basic" label="Search" onChange={handleChange} value={text} variant="outlined" sx={{width:"100%"}}/>
+      <MapContainer  center={[61, 24.9]} zoom={7} scrollWheelZoom={false} style={{height: 400, width: "100%"}}>
+        {/* <MapSearch /> */}
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <ClickMarker position={position} setPosition={setPosition} />
     </MapContainer>
+    </>
   )
 }
 

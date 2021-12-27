@@ -35,6 +35,7 @@ export default function Home() {
     () => import('../src/components/Map'), 
     { ssr: false }
   )
+  console.log(process.env.MAPBOX_API_KEY)
 
   return (
     <div>
