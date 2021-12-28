@@ -1,10 +1,8 @@
-import React from 'react'
+import AddData from 'src/components/farms/AddData';
 
 const index = () => {
   return (
-    <div>
-      Farms
-    </div>
+    <AddData />
   )
 }
 
