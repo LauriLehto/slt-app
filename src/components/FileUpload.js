@@ -1,11 +1,10 @@
 
-import Button from '@mui/material/Button'
-import Papa from 'papaparse'
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
+import Papa from 'papaparse';
 
 const FileUpload = (props) => {
-
-  
 
   const onUpload = async(event) => {
 
@@ -22,7 +21,7 @@ const FileUpload = (props) => {
   }
 
   return (
-    <>
+    <Grid item>
       <Button
         variant="contained"
         component="label"
@@ -34,7 +33,7 @@ const FileUpload = (props) => {
           onChange={onUpload}
         />
       </Button>
-    </>
+    </Grid>
   )
 }
 

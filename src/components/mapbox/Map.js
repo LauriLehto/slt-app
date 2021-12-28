@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import Grid from '@mui/material/Grid';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken =
@@ -8,8 +9,8 @@ const Map = () => {
   const mapContainerRef = useRef(null);
 
   const [lng, setLng] = useState(25);
-  const [lat, setLat] = useState(60);
-  const [zoom, setZoom] = useState(11);
+  const [lat, setLat] = useState(60.5);
+  const [zoom, setZoom] = useState(7);
 
   const marker = new mapboxgl.Marker()
   
@@ -45,14 +46,14 @@ const Map = () => {
   
 
   return (
-    <div>
+    <Grid item>
       <div className='sidebar'>
         <div>
           Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
         </div>
       </div>
       <div className='map-container' ref={mapContainerRef} />
-    </div>
+    </Grid>
   );
 };
 

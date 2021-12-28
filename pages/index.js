@@ -9,32 +9,12 @@ import DataTable from '../src/components/DataTable'
 import 'leaflet/dist/leaflet.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-/* const MapSelect = dynamic(import('../components/MapSelect'), {
-  ssr: false,
-  loading: () => (
-    <div style={{textAlign: 'center', paddingTop: 20}}>
-      Loading...
-    </div>
-  )
-}) */
-
+import TopNav from '../src/components/TopNav'
 
 
 export default function Home() {
   const [data, setData] = useState()
 
-  /* const MapSelect = dynamic(
-    () => import('../src/components/leaflet/MapSelect'),
-    {
-      loading: () => <p>A map is loading</p>,
-      ssr: false
-    }
-  ) */
-
-  /* const Map = dynamic(
-    () => import('../src/components/leaflet/Map'), 
-    { ssr: false }
-  ) */
   const Map = dynamic(
     () => import('../src/components/mapbox/Map'), 
     { ssr: false }
@@ -49,15 +29,9 @@ export default function Home() {
         <link rel="icon" href="/solita.png" />
       </Head>
 
-      <Grid 
-        container
-        direction='row'
-        justifyContent="center"
-        alignItems="center"
-        minHeight="650px"
-        >
+      <Grid container direction='row' justifyContent="center" alignItems="center" minHeight="650px" >
         <Grid item xs={6}> 
-          <Grid container alignItems="end" justifyContent="center">
+          <Grid container direction="column" alignItems="end" justifyContent="center" spacing={2}>
             <Map />
             <FileUpload setData={setData} />
           </Grid>
