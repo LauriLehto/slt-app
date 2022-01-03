@@ -8,9 +8,6 @@ import DataTable from '../src/components/DataTable'
 import 'leaflet/dist/leaflet.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import TopNav from '../src/components/TopNav'
-
-
 export default function Home() {
   const [data, setData] = useState()
 
@@ -19,11 +16,8 @@ export default function Home() {
     { ssr: false }
   )
 
-
   return (
     <div>
-      
-
       <Grid container direction='row' justifyContent="center" alignItems="center" minHeight="650px" >
         <Grid item xs={6}> 
           <Grid container direction="column" alignItems="end" justifyContent="center" spacing={2}>
@@ -35,7 +29,6 @@ export default function Home() {
           {data && <DataTable data={data} />}
         </Grid>
       </Grid>
-      
     </div>
   )
 }

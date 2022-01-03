@@ -13,6 +13,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const pages = [
   {header: 'Users', link: "/users"},
@@ -22,6 +23,7 @@ const pages = [
 export default function TopNav() {
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
+  const { data: session } = useSession();
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -75,7 +77,19 @@ export default function TopNav() {
                 </Typography>
               </Link>
             ))}
-            {auth && (
+            {session ? (
+              <div>
+                Hello, {session.user.email ?? session.user.name} <br />
+                <button onClick={() => signOut()}>Sign out</button>
+              </div>
+              ) : (
+                <div>
+                  You are not logged in! <br />
+                  <button onClick={() => signIn()}>Sign in</button>
+                </div>
+              )
+            }
+            {/* {auth && (
               <div>
                 <IconButton
                   size="large"
@@ -106,7 +120,7 @@ export default function TopNav() {
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                 </Menu>
               </div>
-            )}
+            )} */}
           </Toolbar>
         </AppBar>
       </Box>
