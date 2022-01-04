@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid'
 
 import AddData from 'src/components/farms/AddData'
 import DataTable from 'src/components/DataTable'
+import DataTable2 from 'src/components/DataTable2'
 
 const ShowData = () => {
   const [table, setTable] = useState()
@@ -10,7 +11,7 @@ const ShowData = () => {
   return (
     <Grid container direction='row' justifyContent="center" alignItems="center" minHeight="650px" >
       <Grid item xs={6}>
-        {table && <DataTable data={table.data} headers={table.headers} />}
+        {table && <DataTable2 data={table.data} headers={table.headers} />}
       </Grid>
       <Grid item xs={6}>
         <AddData setTable={setTable} />

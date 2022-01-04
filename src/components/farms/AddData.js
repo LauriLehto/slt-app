@@ -48,7 +48,7 @@ export default function AddData(props) {
   return (
     <Stack spacing={2} direction="column">
       <Map updateMap={updateMapProps} mapProps={mapProps} />
-      <Stack>
+      <Stack spacing={2} direction="column">
         <TextField label="Longitude" value={mapProps ? mapProps.lng : ''} disabled></TextField>
         <TextField label="Latitude" value={mapProps ? mapProps.lat: ''} disabled></TextField>
       </Stack>
