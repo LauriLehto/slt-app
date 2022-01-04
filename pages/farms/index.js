@@ -1,8 +1,9 @@
-import AddData from 'src/components/farms/AddData';
+import ShowFarms from 'src/components/farms/ShowFarms'
 
 const index = () => {
+
   return (
-    <AddData />
+   <ShowFarms />
   )
 }
 

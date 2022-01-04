@@ -12,17 +12,15 @@ import TablePagination from '@mui/material/TablePagination';
 import TablePaginationActions from './TablePaginationActions';
 
 export default function DataTable(props) {
-  const { data } = props
-  const tableHeaders = data[0]
-  const tableData = data.slice(1)
-
+  const { data, headers } = props
+  
   const [page, setPage] = useState(0);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableData.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -43,13 +41,13 @@ export default function DataTable(props) {
         >
         <TableHead>
           <TableRow>
-            {tableHeaders.map(th => <TableCell key={th}>{th.toUpperCase()}</TableCell>)}
+            {headers.map(th => <TableCell key={th}>{th.toUpperCase()}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
         {(rowsPerPage > 0
-            ? tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : tableData
+            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : data
           ).map((row) => (
             <TableRow
               key={row.toString()}
@@ -64,7 +62,7 @@ export default function DataTable(props) {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={tableData.length}
+              count={data.length}
               rowsPerPage={20}
               page={page}
               SelectProps={{
@@ -86,5 +84,6 @@ export default function DataTable(props) {
 
 
 DataTable.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  headers: PropTypes.array.isRequired
 };

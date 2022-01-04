@@ -8,14 +8,14 @@ const FileUpload = (props) => {
 
   const onUpload = async(event) => {
 
-    console.log(event.target.files[0])
+    //console.log(event.target.files[0])
 
     const csvFile = event.target.files[0]
 
     Papa.parse(csvFile, {
       complete: function(results) {
         console.log("Finished:", results.data);
-        props.setData(results.data)
+        props.handleUpload(results.data)
       }
     });
   }
