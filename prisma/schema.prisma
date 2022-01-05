@@ -9,9 +9,11 @@ generator client {
 
 model Farm {
   id        Int     @id @default(autoincrement())
-  title     String
+  farm_id   Int
+  name      String
   longitude Float
   latitude  Float
+  location  String
 }
 
 model SensorData {

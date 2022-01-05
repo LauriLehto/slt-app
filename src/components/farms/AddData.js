@@ -8,6 +8,23 @@ import FileUpload from 'src/components/FileUpload'
 import 'leaflet/dist/leaflet.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+const filterData = (tableData) => {
+  tableData = tableData.filter(d => {
+    //validate data according to specs
+    if(typeof d[2]==='string'/* checking typeof of data and if data exists for row*/){
+      const type = d[2].toLowerCase()
+      if(type==='ph' && d[3]>=0 && d[3]<=14){
+        return d
+      }else if(type==='rainfall' && d[3]>=0 &&d[3]<=100){
+        return d
+      }else if(type==='temperature' && d[3]<=100 && d[3]>=-50){
+        return d
+      }
+    }
+  })
+  return tableData
+}
+
 export default function AddData(props) {
 
   const [ mapProps, updateMapProps ] = useState({ lng:25, lat:60.5, zoom: 7})
@@ -23,26 +40,13 @@ export default function AddData(props) {
     const tableHeaders = upload[0]
     let tableData = upload.slice(1)
 
-    console.log(tableData)
     console.log(tableData.length)
     
-    tableData = tableData.filter(d => {
-      //validate data according to specs
-      if(typeof d[2]==='string'/* checking typeof of data and if data exists for row*/){
-        const type = d[2].toLowerCase()
-        if(type==='ph' && d[3]>=0 && d[3]<=14){
-          return d
-        }else if(type==='rainfall' && d[3]>=0 &&d[3]<=100){
-          return d
-        }else if(type==='temperature' && d[3]<=100 && d[3]>=-50){
-          return d
-        }
-      }
-    })
+    const filtered = filterData(tableData)
 
-    console.log(tableData.length)
+    console.log(filtered.length)
 
-    setTable({ headers:tableHeaders, data:tableData })
+    setTable({ headers:tableHeaders, data:filtered })
   }
 
   return (

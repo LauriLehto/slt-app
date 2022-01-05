@@ -9,6 +9,7 @@ const Map = (props) => {
   const mapContainerRef = useRef(null);
 
   const { updateMap, mapProps } = props
+  console.log(props)
   const [lng, setLng] = useState(mapProps.lng);
   const [lat, setLat] = useState(mapProps.lat);
   const [zoom, setZoom] = useState(mapProps.zoom);

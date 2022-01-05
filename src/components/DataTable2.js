@@ -285,7 +285,7 @@ export default function EnhancedTable(props) {
                       //role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row}
+                      key={row.name+row.date+row.type}
                       selected={isItemSelected}
                     >
                       <TableCell
