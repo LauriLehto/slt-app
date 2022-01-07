@@ -1,14 +1,25 @@
 const apiUrl =  "http://localhost:8080/v1/farms"
 
-/* import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import {prisma} from 'lib/prisma'
 
 const populateFarms = async (farms) => {
-  const farmsResult = farms.map(farm => await prisma.farm.create(farm))
+  const farmsResult =  await Promise.all(farms.map(async farm => await prisma.farm.create({ data: {...farm}})))
   console.log(farmsResult)
-} */
+}
 
+/* const farmsResult =  await Promise.all(farms.map(async farm => prisma.farm.findUnique({
+  where: {
+    id: farm.farm_id
+  }
+})))
+console.log(farmsResult) */
+/* var arr = [1, 2, 3, 4, 5];
+
+var results = await Promise.all(arr.map(async (item) => {
+    await callAsynchronousOperation(item);
+    return item + 1;
+}));
+ */
 export default async function handler(req, res) {
 
   console.log(req.query)
@@ -16,7 +27,7 @@ export default async function handler(req, res) {
     const result = await fetch(apiUrl)
     const data = await result.json()
 
-    /* populateFarms(data) */
+    populateFarms(data)
     res.status(200).json(data)
 
   }catch(error){

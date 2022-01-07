@@ -1,6 +1,11 @@
+//datasource db {
+//  provider = "sqlite"
+//  url      = "file:./dev.db"
+//}
+
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -9,10 +14,10 @@ generator client {
 
 model Farm {
   id        Int     @id @default(autoincrement())
-  farm_id   Int
+  farm_id   String
   name      String
-  longitude Float
-  latitude  Float
+//  longitude Float
+//  latitude  Float
   location  String
 }
 
